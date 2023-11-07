@@ -1,6 +1,6 @@
 interface ComponentInstance {
   element: string;
-  bindEvents: () => void;
+  bindEvents?: () => void;
 }
 
 interface CurrentComponent {
