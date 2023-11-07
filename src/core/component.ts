@@ -1,6 +1,6 @@
 interface ComponentInstance {
   element: string;
-  bindEvents?: () => void;
+  bindEvents: () => void;
 }
 
 interface CurrentComponent {
@@ -32,11 +32,9 @@ function createComponent<T>(component: (props?: T) => ComponentInstance, props?:
     throw new Error(`컴포넌트가 하나의 상위 요소로 감싸져 있지 않습니다!`);
   }
 
-  const idAttributeAddedElement = componentInstance.element.replace(/(<\w+)(\s|>)/, `$1 id="${currentComponent.id}"$2`);
-
   currentComponent = previousComponent;
 
-  return { ...componentInstance, render: idAttributeAddedElement };
+  return componentInstance;
 }
 
 export { createComponent };
