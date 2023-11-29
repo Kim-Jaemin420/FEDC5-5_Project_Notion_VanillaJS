@@ -1,6 +1,12 @@
 import { getCurrentComponent, setCurrentComponent } from "./currentComponent";
 import { ComponentInstance } from "@/types";
 
+const bindEventsAfterRender = (componentInstance: ComponentInstance) => {
+  requestAnimationFrame(() => {
+    componentInstance.bindEvents?.();
+  });
+};
+
 function createComponent<T>(component: (props: T) => ComponentInstance, props: T): ComponentInstance;
 
 function createComponent(component: () => ComponentInstance): ComponentInstance;
@@ -17,6 +23,7 @@ function createComponent<T>(component: (props?: T) => ComponentInstance, props?:
   const namedComponent = `<div id="${nextComponent.id}">${componentInstance.element}</div>`;
   componentInstance.element = namedComponent;
 
+  bindEventsAfterRender(componentInstance);
   setCurrentComponent(previousComponent);
 
   return componentInstance;
