@@ -1,7 +1,4 @@
-interface ComponentInstance {
-  element: string;
-  bindEvents?: () => void;
-}
+import { ComponentInstance } from "@/types";
 
 interface CurrentComponent {
   id: string;
