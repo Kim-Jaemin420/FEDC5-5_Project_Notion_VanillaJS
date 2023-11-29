@@ -1,5 +1,4 @@
-import { getCurrentComponent } from "@/core";
-import { render } from "@/index";
+import { getCurrentComponent, render } from "@/core";
 
 interface SetState<T> {
   (value: T | ((previousState: T) => T)): void;
@@ -14,7 +13,7 @@ function useState<T>(initialValue: T): [T, SetState<T>] {
     throw new Error("useState는 컴포넌트 안에서만 호출될 수 있습니다.");
   }
 
-  const { id, stateIndex } = currentComponent;
+  const { id, stateIndex, componentFunction, props } = currentComponent;
 
   if (!componentsState[id]) {
     componentsState[id] = [];
@@ -32,7 +31,7 @@ function useState<T>(initialValue: T): [T, SetState<T>] {
 
     if (currentState !== updatedState) {
       componentsState[id][stateIndex] = updatedState;
-      render();
+      render(componentFunction, props);
     }
   };
 
