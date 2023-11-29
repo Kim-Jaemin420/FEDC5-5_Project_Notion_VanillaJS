@@ -14,6 +14,9 @@ function createComponent<T>(component: (props?: T) => ComponentInstance, props?:
 
   const componentInstance = component(props);
 
+  const namedComponent = `<div id="${nextComponent.id}">${componentInstance.element}</div>`;
+  componentInstance.element = namedComponent;
+
   setCurrentComponent(previousComponent);
 
   return componentInstance;
