@@ -26,11 +26,6 @@ function App() {
   const sidebarComponent = createComponent(Sidebar, { documents, createDocument, removeDocument });
   const mainComponent = matchRoute(window.location.pathname);
 
-  const bindEvents = () => {
-    sidebarComponent.bindEvents?.();
-    mainComponent.bindEvents?.();
-  };
-
   return {
     element: `
       <div class=${s_container}>
@@ -40,7 +35,6 @@ function App() {
         </main>
       </div>
     `,
-    bindEvents,
   };
 }
 
