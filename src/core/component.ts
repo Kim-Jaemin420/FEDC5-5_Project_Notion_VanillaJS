@@ -1,24 +1,20 @@
+import { getCurrentComponent, setCurrentComponent } from "./currentComponent";
 import { ComponentInstance } from "@/types";
-
-interface CurrentComponent {
-  id: string;
-  stateIndex: number;
-}
-
-export let currentComponent: CurrentComponent | null = null;
 
 function createComponent<T>(component: (props: T) => ComponentInstance, props: T): ComponentInstance;
 
 function createComponent(component: () => ComponentInstance): ComponentInstance;
 
 function createComponent<T>(component: (props?: T) => ComponentInstance, props?: T) {
-  const previousComponent = currentComponent;
+  const previousComponent = getCurrentComponent();
 
-  currentComponent = { id: component.name, stateIndex: 0 };
+  const nextComponent = { id: component.name, stateIndex: 0, componentFunction: component, props };
+
+  setCurrentComponent(nextComponent);
 
   const componentInstance = component(props);
 
-  currentComponent = previousComponent;
+  setCurrentComponent(previousComponent);
 
   return componentInstance;
 }
