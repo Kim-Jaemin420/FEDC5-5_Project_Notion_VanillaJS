@@ -1,4 +1,4 @@
-import { currentComponent } from "@/core";
+import { getCurrentComponent } from "@/core";
 import { render } from "@/index";
 
 interface SetState<T> {
@@ -8,6 +8,8 @@ interface SetState<T> {
 const componentsState: Record<string, unknown[]> = {};
 
 function useState<T>(initialValue: T): [T, SetState<T>] {
+  const currentComponent = getCurrentComponent();
+
   if (!currentComponent) {
     throw new Error("useState는 컴포넌트 안에서만 호출될 수 있습니다.");
   }
