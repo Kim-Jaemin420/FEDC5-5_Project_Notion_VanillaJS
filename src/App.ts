@@ -1,4 +1,4 @@
-import { createComponent } from "./core";
+import { createComponent, render } from "./core";
 import { Editor, NotFound, Sidebar, UserGuide } from "./components";
 import { useDocuments } from "./hooks";
 import styles from "./app.module.scss";
@@ -43,5 +43,13 @@ function App() {
     bindEvents,
   };
 }
+
+window.addEventListener("popstate", () => {
+  render(App);
+});
+
+window.addEventListener("navigate", () => {
+  render(App);
+});
 
 export default App;
