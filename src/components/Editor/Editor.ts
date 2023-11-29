@@ -72,7 +72,6 @@ function Editor({ documentId, modifyDocument }: EditorProps) {
     const $form = window.document.querySelector(`.${s_editorForm}`) as HTMLFormElement;
 
     $form.addEventListener("keyup", handleKeydownForm);
-    childDocumentLinksComponent.bindEvents?.();
   };
 
   if (isDocumentNotFound) {
@@ -82,8 +81,8 @@ function Editor({ documentId, modifyDocument }: EditorProps) {
   return {
     element: `
       <form class=${s_editorForm}>
-        <fieldset>
-          <legend class="a11yHidden">새 문서 작성</legend>
+      <fieldset>
+      <legend class="a11yHidden">새 문서 작성</legend>
           <label for="title" class="a11yHidden">제목</label>
           <input id="title" type="text" class="${s_editorInput}" value="${documentForm.title}" placeholder="제목을 입력해주세요"/>
           <div id="content" class="${s_editorContent}" contenteditable="true">
@@ -92,6 +91,7 @@ function Editor({ documentId, modifyDocument }: EditorProps) {
           <div class="${s_childDocuments}" contenteditable="false">
             ${childDocumentLinksComponent.element}
           </div>
+          
         </fieldset>
       </form>
            

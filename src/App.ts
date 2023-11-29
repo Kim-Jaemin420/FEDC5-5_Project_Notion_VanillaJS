@@ -1,4 +1,4 @@
-import { createComponent } from "./core";
+import { createComponent, render } from "./core";
 import { Editor, NotFound, Sidebar, UserGuide } from "./components";
 import { useDocuments } from "./hooks";
 import styles from "./app.module.scss";
@@ -26,11 +26,6 @@ function App() {
   const sidebarComponent = createComponent(Sidebar, { documents, createDocument, removeDocument });
   const mainComponent = matchRoute(window.location.pathname);
 
-  const bindEvents = () => {
-    sidebarComponent.bindEvents?.();
-    mainComponent.bindEvents?.();
-  };
-
   return {
     element: `
       <div class=${s_container}>
@@ -40,8 +35,15 @@ function App() {
         </main>
       </div>
     `,
-    bindEvents,
   };
 }
+
+window.addEventListener("popstate", () => {
+  render(App);
+});
+
+window.addEventListener("navigate", () => {
+  render(App);
+});
 
 export default App;

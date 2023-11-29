@@ -1,4 +1,4 @@
-import { currentComponent } from "@/core";
+import { getCurrentComponent } from "@/core";
 import { deepEqual, isObject } from "@/utils";
 
 type EffectCallback = () => void;
@@ -12,6 +12,8 @@ const hasDepsChanged = (newDependencies: DependenciesArray, oldDependencies: Dep
   );
 
 const useEffect = (callback: EffectCallback, dependencies: DependenciesArray) => {
+  const currentComponent = getCurrentComponent();
+
   if (!currentComponent) {
     throw new Error("useEffect는 컴포넌트 안에서만 호출될 수 있습니다..");
   }
